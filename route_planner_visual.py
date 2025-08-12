@@ -2,6 +2,7 @@ import heapq
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# Define the graph with cities and distances
 graph = {
     'Pune': [('Mumbai', 150), ('Nashik', 120)],
     'Mumbai': [('Pune', 150), ('Nashik', 170), ('Nagpur', 700)],
@@ -11,6 +12,7 @@ graph = {
     'Akola': [('Nagpur', 300)]
 }
 
+# Dijkstra's algorithm to find shortest paths
 def dijkstra(graph, start):
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
@@ -32,6 +34,7 @@ def dijkstra(graph, start):
 
     return distances, previous_nodes
 
+# Function to build the shortest path using previous nodes
 def shortest_path(previous_nodes, start, end):
     path = []
     current = end
@@ -41,6 +44,7 @@ def shortest_path(previous_nodes, start, end):
     path.reverse()
     return path if path[0] == start else None
 
+# Function to visualize the graph and the path
 def visualize_graph(graph, path=None):
     G = nx.Graph()
     for node, edges in graph.items():
@@ -59,6 +63,7 @@ def visualize_graph(graph, path=None):
     plt.title("Route Planner Graph")
     plt.show()
 
+# Main function to run the program
 def main():
     print("📍 Available cities in the graph:", ', '.join(graph.keys()))
     start = input("Enter start city (e.g., Pune): ")
@@ -74,11 +79,13 @@ def main():
 
     if path:
         print(f"\n✅ Shortest path from {start} to {end}: {' -> '.join(path)}")
-        print(f"🛣️ Total distance: {distances[end]}")
+        print(f"🛣️ Total distance: {distances[end]} km")
         visualize_graph(graph, path)
     else:
         print("❌ No path found.")
+
     input("\nPress Enter to exit...")
 
+# Run the program
 if __name__ == "__main__":
     main()
